@@ -1,47 +1,72 @@
 #include <iostream>
-#include <cmath> // for ceiling
-#include <iomanip> //for setprecision
+#include <iomanip>
 using namespace std;
 
-
 int main() {
-	double weight, distance;
-	double rate = 0.0;
-	double totalCost;
+	int choice;
+		double radius, length, width, base, height;
+	const double PI = 3.14159;
 
-	//Get user input for weight and distance
-	cout << "Enter package weight (kg) : ";
-	cin >> weight;
+	// Display menu
+	cout << "Geometry Calculator \n";
+	cout << "1. Calculate the Area of a Circle \n";
+	cout << "2. Calculate the Area of a Rectangle \n";
+	cout << "3. Calculate the Area of a Triangle \n";
+	cout << "4. Quit \n";
+	cout << "Enter your choice (1-4): ";
+	cin >> choice;
 
-	cout << "Enter shipping distance (miles): ";
-	cin >> distance;
 
-	// Input validation
-	if (weight <= 0 || distance > 3000) {
-		cout << "Error: Distance must be between 10 and 3000 miles." << endl;
-		return 0;
+	//Process user choice
+	if (choice < 1 || choice > 4) {
+		cout << "Invalid choice. Please choose 1-4." << endl;
+		return 0; 
 	}
+	cout << fixed << setprecision(2);
 
-	// Determine the rate based on weight
-	if (weight <=2) {
-		rate = 1.10;
-	}else if (weight <= 6) {
-		rate = 2.20;
-	} else if (weight <= 10) {
-		rate = 3.70;
-	} else { // up to 20 kg)
-		rate = 4.80;
+	switch (choice) {
+	case 1: // Circle
+		cout << "Enter the radius of the circle: ";
+		cin >> radius;
+
+		if (radius < 0) {
+			cout << "Radius cannot be negative." << endl;
+			return 0;;
+		}
+
+		cout << "Area of the circle: " << PI * radius * radius << endl;
+		break;
+
+	case 2: // Rectangle
+		cout << "Enter the length of the rectangle: ";
+		cin >> length;
+		cout << "Enter the width of the rectangle: ";
+		cin >> width;
+
+		if (length < 0 || width < 0) {
+			cout << "Length and width cannot be negative." << endl;
+			return 0;
+		}
+		cout << "Area of the rectangle: " << length * width << endl;
+		break;
+
+	case 3: // Triangle
+		cout << "Enter the base of the triangle: ";
+		cin >> base;
+		cout << "Enter the height of the triangle: ";
+		cin >> height;
+
+		if (base < 0 || height < 0) {
+			cout << "Base and height cannot be negative." << endl;
+			return 0;
+		}
+		cout << "Area of the triangle: " << 0.5 * base * height << endl;
+		break;
+
+	case 4: // Quit
+		cout << "Exiting the program. Goodbye!" << endl;
+		break;
 	}
-
-	// Calculate number of 500 mile segments
-	int segments = ceil(distance / 500.0);
-
-	//Calculate total cost
-	totalCost = segments * rate;
-
-	// Output results
-	cout << fixed << setprecision(2); // Set precision for currency format
-	cout << "Shiping cost: $" << totalCost << endl;
 
 	return 0;
 }
